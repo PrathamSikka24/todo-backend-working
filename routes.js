@@ -38,8 +38,8 @@ router.get("/", async (req, res, next) => {
   try {
     const getTodos = db.todos.filter((item) => item.flagged === false);
 
-    const { user_id: userId } = req.headers;
-    await authorization(userId, "view:all");
+    const { name } = req.headers;
+    await authorization(name, "view:all");
 
     res.json({
       code: 200,
@@ -57,8 +57,8 @@ router.get("/:id", async (req, res, next) => {
       (item) => item.flagged === false && item.id === Number(req.params.id)
     );
 
-    const { user_id: userId } = req.headers;
-    await authorization(userId, "view:single");
+    const { name } = req.headers;
+    await authorization(name, "view:single");
 
     res.json({
       code: 200,
@@ -74,7 +74,7 @@ router.patch("/:id", async (req, res, next) => {
   try {
     const { title } = req.body;
     let updatedContent = { title };
-    const { user_id: userId } = req.headers;
+    const { name } = req.headers;
 
     const todoId = req.params.id;
     checkTodoExistAndGet(todoId);
@@ -90,7 +90,7 @@ router.patch("/:id", async (req, res, next) => {
       return item;
     });
 
-    await authorization(userId, "update", updatedContent);
+    await authorization(name, "update", updatedContent);
 
     db.todos = tempUpdatedTodos;
 
@@ -106,7 +106,7 @@ router.patch("/:id", async (req, res, next) => {
 
 router.delete("/:id", async (req, res, next) => {
   try {
-    const { user_id: userId } = req.headers;
+    const { name } = req.headers;
     const todoId = req.params.id;
     const todo = checkTodoExistAndGet(todoId);
 
@@ -132,7 +132,7 @@ router.post("/flag/:id", async (req, res, next) => {
     let flaggedContent = {
       flagged: req.body.flag,
     };
-    const { user_id: userId } = req.headers;
+    const { name } = req.headers;
 
     const todoId = req.params.id;
     checkTodoExistAndGet(todoId);
@@ -148,7 +148,7 @@ router.post("/flag/:id", async (req, res, next) => {
       return item;
     });
 
-    await authorization(userId, "flag", flaggedContent);
+    await authorization(name, "flag", flaggedContent);
 
     db.todos = tempUpdatedTodos;
 

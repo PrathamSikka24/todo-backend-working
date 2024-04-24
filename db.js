@@ -1,11 +1,11 @@
 // Updated db.js
 const db = {
   users: [
-    { id: 1, name: "Andrew Smith", role: "user", blocked: false },
-    { id: 2, name: "John Doe", role: "user", blocked: false },
-    { id: 3, name: "Davis Johnson", role: "user", blocked: true },
-    { id: 4, name: "Maria Waters", role: "admin", blocked: false },
-    { id: 5, name: "Grace Stones", role: "admin", blocked: false },
+    { id: 1, name: "Pratham", role: "user", blocked: false },
+    { id: 2, name: "Apoorv", role: "user", blocked: false },
+    { id: 3, name: "Adosh", role: "user", blocked: false },
+    { id: 4, name: "Shantanu", role: "admin", blocked: false },
+    { id: 5, name: "Karan", role: "admin", blocked: false },
   ],
   todos: [
     { id: 1, title: "Go To Gym", flagged: false },

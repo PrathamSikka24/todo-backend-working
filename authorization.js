@@ -1,5 +1,5 @@
 const { GRPC } = require("@cerbos/grpc");
-const { users } = require("./db");
+const db = require("./db"); // Make sure you correctly require the db module
 
 // The Cerbos PDP instance
 const cerbos = new GRPC("localhost:3593", {
@@ -8,8 +8,11 @@ const cerbos = new GRPC("localhost:3593", {
 
 const SHOW_PDP_REQUEST_LOG = false;
 
-module.exports = async (principalId, action, resourceAtrr = {}) => {
-  const user = users.find((item) => item.id === Number(principalId));
+module.exports = async (userName, action, resourceAtrr = {}) => {
+  const user = db.users.find(u => u.name.toLowerCase() === userName.toLowerCase());
+  if (!user) {
+    throw new Error("User not found");
+  }
 
   const cerbosObject = {
     resource: {
@@ -19,7 +22,7 @@ module.exports = async (principalId, action, resourceAtrr = {}) => {
       attributes: resourceAtrr,
     },
     principal: {
-      id: principalId + "" || "0",
+      id: user.name, // Changed from principalId to user.name
       policyVersion: "default",
       roles: [user?.role || "unknown"],
       attributes: user,
@@ -27,8 +30,9 @@ module.exports = async (principalId, action, resourceAtrr = {}) => {
     actions: [action],
   };
 
-  SHOW_PDP_REQUEST_LOG &&
+  if (SHOW_PDP_REQUEST_LOG) {
     console.log("cerbosObject \n", JSON.stringify(cerbosObject, null, 4));
+  }
 
   const cerbosCheck = await cerbos.checkResource(cerbosObject);
 

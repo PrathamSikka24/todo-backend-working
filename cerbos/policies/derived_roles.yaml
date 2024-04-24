@@ -1,0 +1,36 @@
+---
+# derived_roles.yaml
+
+apiVersion: "api.cerbos.dev/v1"
+derivedRoles:
+  name: common_roles
+  definitions:
+    - name: all_users
+      parentRoles: ["user", "admin"]
+      condition:
+        match:
+          expr: request.principal.attr.blocked == false
+
+    - name: owner
+      parentRoles: ["user"]
+      condition:
+        match:
+          all:
+            of:
+              - expr: request.resource.attr.userId == request.principal.attr.id
+              - expr: request.principal.attr.blocked == false
+      
+    - name: user_only
+      parentRoles: ["user"]
+      condition:
+        match:
+          expr: request.principal.attr.blocked == false
+    
+    - name: admin_only
+      parentRoles: ["admin"]
+      condition:
+        match:
+          expr: request.principal.attr.blocked == false
+
+    - name: unknown
+      parentRoles: ["unknown"]

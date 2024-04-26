@@ -5,34 +5,35 @@ resourcePolicy:
     - common_roles
   resource: "todos"
   rules:
-    - actions: ['view:all']
+    - actions: ["view:all"]
       effect: EFFECT_ALLOW
       roles:
         - user
         - admin
 
-    - actions: ['view:single']
+    - actions: ["view:single"]
       effect: EFFECT_ALLOW
       roles:
         - admin
         - user
 
-    - actions: ['create']
+    - actions: ["create"]
       effect: EFFECT_ALLOW
-      derivedRoles:
-        - admin_only
-
-    - actions: ['update']
-      effect: EFFECT_ALLOW
-      roles: 
+      roles:
+        - user
         - admin
-        
-    - actions: ['delete']
-      effect: EFFECT_ALLOW
-      derivedRoles:
-        - admin_only
 
-    - actions: ['flag']
+    - actions: ["update"]
       effect: EFFECT_ALLOW
-      derivedRoles:
-        - admin_only
+      roles:
+        - admin
+
+    - actions: ["delete"]
+      effect: EFFECT_ALLOW
+      roles:
+        - admin
+
+    - actions: ["flag"]
+      effect: EFFECT_ALLOW
+      roles:
+        - admin

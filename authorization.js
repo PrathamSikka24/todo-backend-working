@@ -9,7 +9,9 @@ const cerbos = new GRPC("localhost:3593", {
 const SHOW_PDP_REQUEST_LOG = false;
 
 module.exports = async (userName, action, resourceAtrr = {}) => {
-  const user = db.users.find(u => u.name.toLowerCase() === userName.toLowerCase());
+  const user = db.users.find(
+    (u) => u.name.toLowerCase() === userName.toLowerCase()
+  );
   if (!user) {
     throw new Error("User not found");
   }

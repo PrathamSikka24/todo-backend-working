@@ -12,14 +12,13 @@ const checkTodoExistAndGet = (id) => {
 router.post("/", async (req, res, next) => {
   try {
     const { title } = req.body;
-    const { user_id: userId } = req.headers;
+    const { name } = req.headers;
 
-    await authorization(userId, "create", req.body);
+    await authorization(name, "create", req.body);
 
     const newData = {
       id: Math.floor(Math.random() * 999999 + 1),
       title,
-      userId: Number(userId),
       flagged: false,
     };
     db.todos.push(newData);
@@ -114,7 +113,7 @@ router.delete("/:id", async (req, res, next) => {
       (item) => item.flagged === false && item.id !== Number(todoId)
     );
 
-    await authorization(userId, "delete", todo);
+    await authorization(name, "delete", todo);
 
     db.todos = allTodos;
 

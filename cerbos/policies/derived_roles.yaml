@@ -19,13 +19,13 @@ derivedRoles:
             of:
               - expr: request.resource.attr.userId == request.principal.attr.id
               - expr: request.principal.attr.blocked == false
-      
+
     - name: user_only
       parentRoles: ["user"]
       condition:
         match:
           expr: request.principal.attr.blocked == false
-    
+
     - name: admin_only
       parentRoles: ["admin"]
       condition:

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo List</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      ul {
+        list-style-type: none;
+        padding: 0;
+      }
+      li {
+        margin: 8px 0;
+      }
+      .delete {
+        color: red;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Todo List</h1>
+
+    <select id="userNameDropdown" onchange="fetchTodos()">
+      <option value="Pratham">Pratham</option>
+      <option value="Apoorv">Apoorv</option>
+      <option value="Adosh">Adosh</option>
+      <option value="Shantanu">Shantanu</option>
+      <option value="Karan">Karan</option>
+    </select>
+
+    <input type="text" id="todoInput" placeholder="Add a new todo..." />
+    <button onclick="addTodo()">Add Todo</button>
+    <ul id="todoList"></ul>
+
+    <script src="app.js"></script>
+  </body>
+</html>

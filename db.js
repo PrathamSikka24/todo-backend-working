@@ -10,7 +10,7 @@ const db = {
   todos: [
     { id: 1, title: "Go To Gym", flagged: false },
     { id: 2, title: "Buy Groceries", flagged: false },
-    { id: 3, title: "Do Laundry", flagged: false }
+    { id: 3, title: "Do Laundry", flagged: false },
   ],
 };
 
